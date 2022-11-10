@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     
     let toplLabel: UILabel = {
        let label = UILabel()
-        label.text = "Tap!"
+        label.text = "Ask me any question!"
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textColor = .white
         return label
@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     
     let bottomlabel: UILabel = {
        let label = UILabel()
-        label.text = "Shake it ti see the answer"
+        label.text = "Shake it to see the answer!"
         label.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
         label.textColor = .white
         return label
@@ -35,7 +35,15 @@ class ViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setImage(image, for: .normal)
         button.tintColor = .white
+        button.addTarget(self, action: #selector(handleTapButton), for: .touchUpInside)
         return button
+    }()
+    
+    let ballImage: UIImageView = {
+       let iv = UIImageView()
+        iv.image = UIImage(named: "ball1")
+        iv.contentMode = .scaleAspectFit
+        return iv
     }()
     
     //MARK: - Lifecycle
@@ -63,6 +71,16 @@ class ViewController: UIViewController {
         view.addSubview(tapButton)
         tapButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, right: view.rightAnchor, paddingTop: 5, paddingRight: 10)
         
+        view.addSubview(ballImage)
+        ballImage.setDimensions(height: 250, width: 250)
+        ballImage.center(inView: view)
+        
+    }
+    
+    //MARK: - Actions
+    
+    @objc func handleTapButton() {
+        print("Tap was pressed...")
     }
 }
 
