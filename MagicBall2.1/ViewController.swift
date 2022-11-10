@@ -10,11 +10,17 @@ import UIKit
 class ViewController: UIViewController {
     
     //MARK: - Properties
+
+    var ballArray = [UIImage(named: "ball1"),
+                     UIImage(named: "ball2"),
+                     UIImage(named: "ball3"),
+                     UIImage(named: "ball4"),
+                     UIImage(named: "ball5")]
     
     let toplLabel: UILabel = {
        let label = UILabel()
-        label.text = "Ask me any question!"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.text = "Tap!"
+        label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         label.textColor = .white
         return label
     }()
@@ -22,7 +28,7 @@ class ViewController: UIViewController {
     let bottomlabel: UILabel = {
        let label = UILabel()
         label.text = "Shake it to see the answer!"
-        label.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
         label.textColor = .white
         return label
     }()
@@ -74,13 +80,26 @@ class ViewController: UIViewController {
         view.addSubview(ballImage)
         ballImage.setDimensions(height: 250, width: 250)
         ballImage.center(inView: view)
-        
+    }
+    
+    func imageChange() {
+        ballImage.image = ballArray.randomElement() as! UIImage
     }
     
     //MARK: - Actions
     
     @objc func handleTapButton() {
-        print("Tap was pressed...")
+        imageChange()
+    }
+    
+    override func becomeFirstResponder() -> Bool {
+        return true
+    }
+    
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            imageChange()
+        }
     }
 }
 
